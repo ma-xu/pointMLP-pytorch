@@ -1,10 +1,4 @@
-"""
-for training with resume functions.
-Usage:
-python main.py --model PointNet --msg demo
-or
-CUDA_VISIBLE_DEVICES=0 nohup python main.py --model PointNet --msg demo > nohup/PointNet_demo.out &
-"""
+
 import argparse
 import os
 import logging
