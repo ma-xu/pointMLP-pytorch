@@ -78,4 +78,6 @@ python main.py --model pointMLP
 # please add other paramemters as you wish.
 ```
 
+## Pre-trained models
 
+Please download the pre-trained models and log files here: [anonymous google drive](https://drive.google.com/drive/folders/1Jn9HNpPsrq-1XqSmOUtw4cwPMjsIiIpz?usp=sharing)
