@@ -1,13 +1,3 @@
-"""
-@Author: Yue Wang
-@Contact: yuewangx@mit.edu
-@File: data.py
-@Time: 2018/10/13 6:21 PM
-Modified by
-@Author: Tiange Xiang
-@Contact: txia7609@uni.sydney.edu.au
-@Time: 2021/1/21 3:10 PM
-"""
 
 
 import os

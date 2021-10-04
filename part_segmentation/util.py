@@ -1,9 +1,3 @@
-"""
-@Author: Yue Wang
-@Contact: yuewangx@mit.edu
-@File: util
-@Time: 4/5/19 3:47 PM
-"""
 
 
 import numpy as np
