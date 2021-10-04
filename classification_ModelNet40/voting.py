@@ -1,6 +1,3 @@
-"""
-nohup python voting.py --model model31A --msg 20210818204651 > model31A_20210818204651_voting.out &
-"""
 import argparse
 import os
 import datetime
@@ -32,10 +29,7 @@ def parse_args():
     parser.add_argument('--batch_size', type=int, default=32, help='batch size in training')
     parser.add_argument('--model', default='model31A', help='model name [default: pointnet_cls]')
     parser.add_argument('--num_classes', default=40, type=int, choices=[10, 40], help='training on ModelNet10/40')
-    parser.add_argument('--epoch', default=350, type=int, help='number of epoch in training')
     parser.add_argument('--num_points', type=int, default=1024, help='Point Number')
-    parser.add_argument('--learning_rate', default=0.01, type=float, help='learning rate in training')
-    parser.add_argument('--weight_decay', type=float, default=1e-4, help='decay rate')
     parser.add_argument('--seed', type=int, help='random seed (default: 1)')
 
     # Voting evaluation, referring: https://github.com/CVMI-Lab/PAConv/blob/main/obj_cls/eval_voting.py
@@ -46,7 +40,7 @@ def parse_args():
     return parser.parse_args()
 
 
-class PointcloudScale(object): # input random scaling
+class PointcloudScale(object):  # input random scaling
     def __init__(self, scale_low=2. / 3., scale_high=3. / 2.):
         self.scale_low = scale_low
         self.scale_high = scale_high
@@ -58,6 +52,7 @@ class PointcloudScale(object): # input random scaling
             pc[i, :, 0:3] = torch.mul(pc[i, :, 0:3], torch.from_numpy(xyz1).float().cuda())
 
         return pc
+
 
 def main():
     args = parse_args()
@@ -82,12 +77,12 @@ def main():
     if args.msg is None:
         message = str(datetime.datetime.now().strftime('-%Y%m%d%H%M%S'))
     else:
-        message = "-"+args.msg
+        message = "-" + args.msg
     args.checkpoint = 'checkpoints/' + args.model + message
 
     print('==> Preparing data..')
     test_loader = DataLoader(ModelNet40(partition='test', num_points=args.num_points), num_workers=4,
-                             batch_size=args.batch_size//2, shuffle=False, drop_last=False)
+                             batch_size=args.batch_size // 2, shuffle=False, drop_last=False)
     # Model
     print('==> Building model..')
     net = models.__dict__[args.model]()
@@ -113,8 +108,6 @@ def main():
 
     print(f"===> start voting evaluation...")
     voting(net, test_loader, device, args)
-
-
 
 
 def validate(net, testloader, criterion, device):
@@ -152,10 +145,10 @@ def validate(net, testloader, criterion, device):
 
 
 def voting(net, testloader, device, args):
-    name ='/evaluate_voting'+str(datetime.datetime.now().strftime('-%Y%m%d%H%M%S'))+'seed_'+str(args.seed)+'.log'
+    name = '/evaluate_voting' + str(datetime.datetime.now().strftime('-%Y%m%d%H%M%S')) + 'seed_' + str(
+        args.seed) + '.log'
     io = IOStream(args.checkpoint + name)
     io.cprint(str(args))
-
 
     net.eval()
     best_acc = 0
@@ -197,12 +190,6 @@ def voting(net, testloader, device, args):
 
     final_outstr = 'Final voting test acc: %.6f,' % (best_acc * 100)
     io.cprint(final_outstr)
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

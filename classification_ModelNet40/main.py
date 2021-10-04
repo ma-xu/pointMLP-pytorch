@@ -1,4 +1,3 @@
-
 import argparse
 import os
 import logging
@@ -26,10 +25,10 @@ def parse_args():
     parser.add_argument('--msg', type=str, help='message after checkpoint')
     parser.add_argument('--batch_size', type=int, default=32, help='batch size in training')
     parser.add_argument('--model', default='PointNet', help='model name [default: pointnet_cls]')
-    parser.add_argument('--epoch', default=200, type=int, help='number of epoch in training')
+    parser.add_argument('--epoch', default=300, type=int, help='number of epoch in training')
     parser.add_argument('--num_points', type=int, default=1024, help='Point Number')
     parser.add_argument('--learning_rate', default=0.1, type=float, help='learning rate in training')
-    parser.add_argument('--weight_decay', type=float, default=1e-4, help='decay rate')
+    parser.add_argument('--weight_decay', type=float, default=2e-4, help='decay rate')
     parser.add_argument('--seed', type=int, help='random seed')
     parser.add_argument('--workers', default=8, type=int, help='workers')
     return parser.parse_args()
@@ -56,8 +55,8 @@ def main():
     if args.msg is None:
         message = time_str
     else:
-        message = "-"+args.msg
-    args.checkpoint = 'checkpoints/' + args.model + message + '-'+str(args.seed)
+        message = "-" + args.msg
+    args.checkpoint = 'checkpoints/' + args.model + message + '-' + str(args.seed)
     if not os.path.isdir(args.checkpoint):
         mkdir_p(args.checkpoint)
 
@@ -68,11 +67,10 @@ def main():
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(formatter)
     screen_logger.addHandler(file_handler)
+
     def printf(str):
         screen_logger.info(str)
         print(str)
-
-
 
     # Model
     printf(f"args: {args}")
@@ -93,7 +91,6 @@ def main():
     best_train_loss = float("inf")
     start_epoch = 0  # start from epoch 0 or last checkpoint epoch
     optimizer_dict = None
-
 
     if not os.path.isfile(os.path.join(args.checkpoint, "last_checkpoint.pth")):
         save_args(args)
@@ -116,19 +113,16 @@ def main():
         logger = Logger(os.path.join(args.checkpoint, 'log.txt'), title="ModelNet" + args.model, resume=True)
         optimizer_dict = checkpoint['optimizer']
 
-
-
     printf('==> Preparing data..')
     train_loader = DataLoader(ModelNet40(partition='train', num_points=args.num_points), num_workers=args.workers,
                               batch_size=args.batch_size, shuffle=True, drop_last=True)
     test_loader = DataLoader(ModelNet40(partition='test', num_points=args.num_points), num_workers=args.workers,
-                             batch_size=args.batch_size//2, shuffle=False, drop_last=False)
+                             batch_size=args.batch_size // 2, shuffle=False, drop_last=False)
 
     optimizer = torch.optim.SGD(net.parameters(), lr=args.learning_rate, momentum=0.9, weight_decay=args.weight_decay)
     if optimizer_dict is not None:
         optimizer.load_state_dict(optimizer_dict)
-    scheduler = CosineAnnealingLR(optimizer, args.epoch, eta_min=1e-3, last_epoch=start_epoch-1)
-
+    scheduler = CosineAnnealingLR(optimizer, args.epoch, eta_min=1e-3, last_epoch=start_epoch - 1)
 
     for epoch in range(start_epoch, args.epoch):
         printf('Epoch(%d/%s) Learning Rate %s:' % (epoch + 1, args.epoch, optimizer.param_groups[0]['lr']))
@@ -149,16 +143,15 @@ def main():
         best_test_loss = test_out["loss"] if (test_out["loss"] < best_test_loss) else best_test_loss
         best_train_loss = train_out["loss"] if (train_out["loss"] < best_train_loss) else best_train_loss
 
-
         save_model(
             net, epoch, path=args.checkpoint, acc=test_out["acc"], is_best=is_best,
             best_test_acc=best_test_acc,  # best test accuracy
-            best_train_acc = best_train_acc,
-            best_test_acc_avg = best_test_acc_avg,
-            best_train_acc_avg = best_train_acc_avg,
-            best_test_loss = best_test_loss,
-            best_train_loss = best_train_loss,
-            optimizer = optimizer.state_dict()
+            best_train_acc=best_train_acc,
+            best_test_acc_avg=best_test_acc_avg,
+            best_train_acc_avg=best_train_acc_avg,
+            best_test_loss=best_test_loss,
+            best_train_loss=best_train_loss,
+            optimizer=optimizer.state_dict()
         )
         logger.append([epoch, optimizer.param_groups[0]['lr'],
                        train_out["loss"], train_out["acc_avg"], train_out["acc"],
@@ -176,8 +169,6 @@ def main():
     printf(f"++  Best Train acc_B: {best_train_acc_avg} | Best Test acc_B: {best_test_acc_avg}  ++")
     printf(f"++  Best Train acc: {best_train_acc} | Best Test acc: {best_test_acc}  ++")
     printf(f"++++++++" * 5)
-
-
 
 
 def train(net, trainloader, optimizer, criterion, device):
