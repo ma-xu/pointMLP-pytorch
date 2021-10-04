@@ -1,18 +1,4 @@
-"""
-Based on model30, change the grouper operation by normalization.
-Based on model28, only change configurations, mainly the reducer.
-Based on model27, change to x-a, reorgnized structure
-Based on model25, simple LocalGrouper (not x-a), reorgnized structure
-Based on model24, using ReLU to replace GELU
-Based on model22, remove attention
-Bsed on model21, change FPS to random sampling.
-Exactly based on Model10, but ReLU to GeLU
-Based on Model8, add dropout and max, avg combine.
-Based on Local model, add residual connections.
-The extraction is doubled for depth.
-Learning Point Cloud with Progressively Local representation.
-[B,3,N] - {[B,G,K,d]-[B,G,d]}  - {[B,G',K,d]-[B,G',d]} -cls
-"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -291,12 +277,12 @@ class PosExtraction(nn.Module):
         return self.operation(x)
 
 
-class model31(nn.Module):
+class Model(nn.Module):
     def __init__(self, points=1024, class_num=40, embed_dim=64, groups=1, res_expansion=1.0,
                  activation="relu", bias=True, use_xyz=True, normalize="center",
                  dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[2, 2, 2, 2],
                  k_neighbors=[32, 32, 32, 32], reducers=[2, 2, 2, 2], **kwargs):
-        super(model31, self).__init__()
+        super(Model, self).__init__()
         self.stages = len(pre_blocks)
         self.class_num = class_num
         self.points = points
@@ -359,172 +345,24 @@ class model31(nn.Module):
 
 
 
-def model31A(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
-                   activation="relu", bias=False, use_xyz=False, normalize="anchor",
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[2, 2, 2, 2],
-                   k_neighbors=[32, 32, 32, 32], reducers=[2, 2, 2, 2], **kwargs)
 
-def model31B(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
-                   activation="relu", bias=False, use_xyz=False, normalize="center",
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[2, 2, 2, 2],
-                   k_neighbors=[32, 32, 32, 32], reducers=[2, 2, 2, 2], **kwargs)
-
-
-def model31C(num_classes=40, **kwargs) -> model31: # 85.219, 85.67, 85.115 , 85.566
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
+def pointMLP(num_classes=40, **kwargs) -> Model:
+    return Model(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
                    activation="relu", bias=False, use_xyz=False, normalize="anchor",
                    dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[2, 2, 2, 2],
                    k_neighbors=[24, 24, 24, 24], reducers=[2, 2, 2, 2], **kwargs)
 
-def model31D(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
+
+def pointMLPElite(num_classes=40, **kwargs) -> Model:
+    return Model(points=1024, class_num=num_classes, embed_dim=32, groups=1, res_expansion=0.25,
                    activation="relu", bias=False, use_xyz=False, normalize="anchor",
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[2, 2, 2, 2],
-                   k_neighbors=[20, 20, 20, 20], reducers=[2, 2, 2, 2], **kwargs)
-
-
-def model31E(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=32, groups=1, res_expansion=1.0,
-                   activation="relu", bias=False, use_xyz=False, normalize="anchor",
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[2, 2, 2, 2],
-                   k_neighbors=[32, 32, 32, 32], reducers=[2, 2, 2, 2], **kwargs)
-
-
-def model31F(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=0.125,
-                   activation="relu", bias=False, use_xyz=False, normalize="anchor",
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[2, 2, 2, 2],
-                   k_neighbors=[32, 32, 32, 32], reducers=[2, 2, 2, 2], **kwargs)
-
-
-def model31G(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=16, res_expansion=2.0,
-                   activation="relu", bias=False, use_xyz=False, normalize="anchor",
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[2, 2, 2, 2],
-                   k_neighbors=[32, 32, 32, 32], reducers=[2, 2, 2, 2], **kwargs)
-
-
-"""
-for ablation study
-"""
-
-def model31Ablation1111(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
-                   activation="relu", bias=False, use_xyz=False, normalize="anchor",
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[1, 1, 1, 1], pos_blocks=[1, 1, 1, 1],
-                   k_neighbors=[24, 24, 24, 24], reducers=[2, 2, 2, 2], **kwargs)
-
-def model31Ablation1111NOnorm(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
-                   activation="relu", bias=False, use_xyz=False, normalize=None,
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[1, 1, 1, 1], pos_blocks=[1, 1, 1, 1],
-                   k_neighbors=[24, 24, 24, 24], reducers=[2, 2, 2, 2], **kwargs)
-
-def model31Ablation3333(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
-                   activation="relu", bias=False, use_xyz=False, normalize="anchor",
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[3, 3, 3, 3], pos_blocks=[3, 3, 3, 3],
-                   k_neighbors=[24, 24, 24, 24], reducers=[2, 2, 2, 2], **kwargs)
-
-def model31Ablation3333NOnorm(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
-                   activation="relu", bias=False, use_xyz=False, normalize=None,
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[3, 3, 3, 3], pos_blocks=[3, 3, 3, 3],
-                   k_neighbors=[24, 24, 24, 24], reducers=[2, 2, 2, 2], **kwargs)
-
-def model31Ablation2222NOnorm(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
-                   activation="relu", bias=False, use_xyz=False, normalize=None,
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[2, 2, 2, 2],
-                   k_neighbors=[24, 24, 24, 24], reducers=[2, 2, 2, 2], **kwargs)
-
-
-def model31AblationNopre(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
-                   activation="relu", bias=False, use_xyz=False, normalize="anchor",
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[0, 0, 0, 0], pos_blocks=[2, 2, 2, 2],
-                   k_neighbors=[24, 24, 24, 24], reducers=[2, 2, 2, 2], **kwargs)
-
-def model31AblationNopos(num_classes=40, **kwargs) -> model31:
-    return model31(points=1024, class_num=num_classes, embed_dim=64, groups=1, res_expansion=1.0,
-                   activation="relu", bias=False, use_xyz=False, normalize="anchor",
-                   dim_expansion=[2, 2, 2, 2], pre_blocks=[2, 2, 2, 2], pos_blocks=[0, 0, 0, 0],
-                   k_neighbors=[24, 24, 24, 24], reducers=[2, 2, 2, 2], **kwargs)
-
+                   dim_expansion=[2, 2, 2, 1], pre_blocks=[1, 1, 2, 1], pos_blocks=[1, 1, 2, 1],
+                   k_neighbors=[24,24,24,24], reducers=[2, 2, 2, 2], **kwargs)
 
 if __name__ == '__main__':
-    # data = torch.rand(2, 128, 10)
-    # model = ConvBNReLURes1D(128, groups=2, activation='relu')
-    # out = model(data)
-    # print(out.shape)
-    #
-    # batch, groups, neighbors, dim = 2, 512, 32, 16
-    # x = torch.rand(batch, groups, neighbors, dim)
-    # pre_extractor = PreExtraction(dim, 3)
-    # out = pre_extractor(x)
-    # print(out.shape)
-    #
-    # x = torch.rand(batch, dim, groups)
-    # pos_extractor = PosExtraction(dim, 3)
-    # out = pos_extractor(x)
-    # print(out.shape)
-
     data = torch.rand(2, 3, 1024)
-    print("===> testing model ...")
-    model = model31()
-    out = model(data)
-    print(out.shape)
-
-    print("===> testing modelA ...")
-    model = model31A()
-    out = model(data)
-    print(out.shape)
-
-    print("===> testing modelB ...")
-    model = model31B()
-    out = model(data)
-    print(out.shape)
-
-    print("===> testing modelC ...")
-    model = model31C()
-    out = model(data)
-    print(out.shape)
-
-    print("===> testing modelD ...")
-    model = model31D()
-    out = model(data)
-    print(out.shape)
-
-
-    print("===> testing model31Ablation1111 ...")
-    model = model31Ablation1111()
-    out = model(data)
-    print(out.shape)
-
-    print("===> testing model31Ablation1111NOnorm ...")
-    model = model31Ablation1111NOnorm()
-    out = model(data)
-    print(out.shape)
-
-    print("===> testing model31Ablation3333 ...")
-    model = model31Ablation3333()
-    out = model(data)
-    print(out.shape)
-
-    print("===> testing model31Ablation3333NOnorm ...")
-    model = model31Ablation3333NOnorm()
-    out = model(data)
-    print(out.shape)
-
-    print("===> testing model31AblationNopre ...")
-    model = model31AblationNopre()
-    out = model(data)
-    print(out.shape)
-
-    print("===> testing model31AblationNopos ...")
-    model = model31AblationNopos()
+    print("===> testing pointMLP ...")
+    model = pointMLP()
     out = model(data)
     print(out.shape)
 
