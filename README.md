@@ -16,13 +16,20 @@ pip install pointnet2_ops_lib/.
 ```
 
 ## Classification ModelNet40
-The dataset will be automatically downloaded, directly run following command to train
+The dataset will be automatically downloaded, run following command to train
 ```bash
 # train pointMLP
 python main.py --model pointMLP
 # train pointMLP-elite
 python main.py --model pointMLPElite
 # please add other paramemters as you wish.
+```
+By default, it will create a fold named "checkpoints/{modelName}-{msg}-{randomseed}", which includes args.txt, best_checkpoint.pth, last_checkpoint.pth, log.txt, out.txt.
+
+To conduct voting experiments, run
+```bash
+# please modify the msg accrodingly
+python voting.py --model pointMLP --msg demo
 ```
 
 
