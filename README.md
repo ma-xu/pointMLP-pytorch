@@ -64,11 +64,6 @@ python main.py --model pointMLPElite
 ```
 By default, it will create a fold named "checkpoints/{modelName}-{msg}-{randomseed}", which includes args.txt, best_checkpoint.pth, last_checkpoint.pth, log.txt, out.txt.
 
-- To conduct voting experiments
-```bash
-# please modify the msg accrodingly
-python voting.py --model pointMLP --msg demo
-```
 
 ## Part segmentation
 
