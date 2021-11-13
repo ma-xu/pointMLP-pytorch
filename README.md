@@ -7,6 +7,11 @@ Rethinking Network Design and Local Geometry in Point Cloud: A Simple Residual M
 
 Overview of one stage in PointMLP. Given an input point cloud, PointMLP progressively extract local features using residual point MLP blocks. In each stage, we first transform local point using a geometric affine module, then local points are are extracted before and after aggregation respectively. By repeating multiple stages, PointMLP progressively enlarge the receptive field and model entire point cloud geometric information.
 
+## For rebuttal
+
+We will upload the trained models and log files on Nov/14.
+
+
 ## Pre-trained models
 
 Please download the pre-trained models and log files here: [[anonymous google drive]](https://drive.google.com/drive/folders/1Jn9HNpPsrq-1XqSmOUtw4cwPMjsIiIpz?usp=sharing)
