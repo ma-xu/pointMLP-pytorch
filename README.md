@@ -11,6 +11,8 @@ Overview of one stage in PointMLP. Given an input point cloud, PointMLP progress
 
 We will upload the trained models and log files by Nov 20.
 
+Sorry for the late since I was busy with other projects.
+
 
 ## Pre-trained models
 
