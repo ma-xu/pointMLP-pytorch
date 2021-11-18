@@ -9,7 +9,7 @@ Overview of one stage in PointMLP. Given an input point cloud, PointMLP progress
 
 ## For rebuttal
 
-We will upload the trained models and log files on Nov/14.
+We will upload the trained models and log files by Nov 20.
 
 
 ## Pre-trained models
