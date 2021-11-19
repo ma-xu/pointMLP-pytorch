@@ -9,17 +9,14 @@ Overview of one stage in PointMLP. Given an input point cloud, PointMLP progress
 
 ## For rebuttal
 
-We will upload the trained models and log files by Nov 20.
 
-Sorry for the late since I was busy with other projects.
+The link to CurveNet on ScanObjectNN : [[link]](https://drive.google.com/drive/folders/1u02_2aK6hfT3Ds81vtd4wv3n3tFGQ3bX?usp=sharing)
 
-The link to CurveNet on ScanObjectNN : [link](https://drive.google.com/drive/folders/1u02_2aK6hfT3Ds81vtd4wv3n3tFGQ3bX?usp=sharing)
+The link to Residual PointNet++ on MOdelNet40: [[link]](https://drive.google.com/drive/folders/1klIpv2QLTVhDWusfQCAMXq-DkYawr-yA?usp=sharing)
 
-The link to Residual PointNet++ on MOdelNet40: [link](https://drive.google.com/drive/folders/1klIpv2QLTVhDWusfQCAMXq-DkYawr-yA?usp=sharing)
+The link to intergrating our Affine to other models: [[DGCNN]](https://drive.google.com/drive/folders/1qDkCKVtF-QXrDceBKAvcoZ4mv9vTaYnR?usp=sharing) [[PointNet++]](https://drive.google.com/drive/folders/1jPfB_8xJjkCQfdRAsL1u6FfABpfFKEC9?usp=sharing)
 
-The link to intergrating our Affine to other models: [DGCNN](https://drive.google.com/drive/folders/1qDkCKVtF-QXrDceBKAvcoZ4mv9vTaYnR?usp=sharing) [PointNet++](https://drive.google.com/drive/folders/1jPfB_8xJjkCQfdRAsL1u6FfABpfFKEC9?usp=sharing)
-
-To link to more pre-MLP blocks withou pos-MLP blocks: [link](https://drive.google.com/drive/folders/1KORIIUZmEJ3FHKPeKj-p8u9m7o5DKnmQ?usp=sharing)
+To link to more pre-MLP blocks withou pos-MLP blocks: [[link]](https://drive.google.com/drive/folders/1KORIIUZmEJ3FHKPeKj-p8u9m7o5DKnmQ?usp=sharing)
 
 
 ## Pre-trained models
