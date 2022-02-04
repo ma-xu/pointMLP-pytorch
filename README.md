@@ -6,16 +6,18 @@ __Rethinking Network Design and Local Geometry in Point Cloud: A Simple Residual
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/rethinking-network-design-and-local-geometry/3d-point-cloud-classification-on-scanobjectnn)](https://paperswithcode.com/sota/3d-point-cloud-classification-on-scanobjectnn?p=rethinking-network-design-and-local-geometry)
 [archived: Feb/3/2022]
 
-## TO DO:
-- [ ] release paper/codes by Feb/7/2022
-- [ ] update std bug (unstable testing)
-- [ ] project page
+
 
 <div align="center">
   <img src="overview.png" width="650px" height="300px">
 </div>
 
 Overview of one stage in PointMLP. Given an input point cloud, PointMLP progressively extract local features using residual point MLP blocks. In each stage, we first transform local point using a geometric affine module, then local points are are extracted before and after aggregation respectively. By repeating multiple stages, PointMLP progressively enlarge the receptive field and model entire point cloud geometric information.
+
+## TO DO:
+- [ ] release paper/codes by Feb/7/2022
+- [ ] update std bug (unstable testing)
+- [ ] project page
 
 ## Updates Jan/31/2022:
 
