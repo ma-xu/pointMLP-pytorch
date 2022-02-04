@@ -23,12 +23,12 @@ Overview of one stage in PointMLP. Given an input point cloud, PointMLP progress
 
 ## Updates Jan/31/2022:
 
-We will release an official code here: [https://github.com/13952522076/pointMLP-pytorch](https://github.com/13952522076/pointMLP-pytorch)
+We will release an official code here: [http://github.com/13952522076/pointMLP-pytorch](http://github.com/13952522076/pointMLP-pytorch)
 
 This anonymous link will expire on: **4/2/2022**
 
-**Note:** this anonymous link is synchronized with [https://github.com/13952522076/pointMLP-pytorch/tree/d2b8dbaa06eb6176b222dcf2ad248f8438582026
-](https://github.com/13952522076/pointMLP-pytorch/tree/d2b8dbaa06eb6176b222dcf2ad248f8438582026).
+**Note:** this anonymous link is synchronized with [http://github.com/13952522076/pointMLP-pytorch/tree/d2b8dbaa06eb6176b222dcf2ad248f8438582026
+](http://github.com/13952522076/pointMLP-pytorch/tree/d2b8dbaa06eb6176b222dcf2ad248f8438582026).
 
 
 ## For rebuttal
