@@ -169,11 +169,11 @@ class LocalGrouper(nn.Module):
             grouped_points = torch.cat([grouped_points, grouped_xyz],dim=-1)  # [B, npoint, k, d+3]
         if self.normalize is not None:
             if self.normalize =="center":
-                std, mean = torch.std_mean(grouped_points, dim=2, keepdim=True)
+                mean = torch.mean(grouped_points, dim=2, keepdim=True)
             if self.normalize =="anchor":
                 mean = torch.cat([new_points, new_xyz],dim=-1) if self.use_xyz else new_points
-                mean = mean.unsqueeze(dim=-2)  # [B, npoint, 1, d+3]
-                std = torch.std(grouped_points-mean)
+                mean = mean.unsqueeze(dim=-2)  # [B, npoint, 1, d+3]	
+            std = torch.std((grouped_points-mean).reshape(B,-1),dim=-1,keepdim=True).unsqueeze(dim=-1).unsqueeze(dim=-1)
             grouped_points = (grouped_points-mean)/(std + 1e-5)
             grouped_points = self.affine_alpha*grouped_points + self.affine_beta
 
