@@ -98,14 +98,7 @@ python voting.py --model pointMLP --msg demo
 
 ### Classification ScanObjectNN
 
-- Make data folder and download the dataset
-```bash
-cd pointMLP-pytorch/classification_ScanObjectNN
-mkdir data
-cd data
-wget http://103.24.77.34/scanobjectnn/h5_files.zip
-unzip h5_files.zip
-```
+The dataset will be automatically downloaded
 
 - Train pointMLP/pointMLPElite 
 ```bash
