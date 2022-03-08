@@ -43,8 +43,8 @@ Overview of one stage in PointMLP. Given an input point cloud, PointMLP progress
 
 ## News & Updates:
 
-- [ ] updated more pretrained models
-- [ ] double check the part seg utils
+- [ ] fix the uncomplete utils in partseg by Mar/10
+- [x] upload test code for ModelNet40
 - [ ] project page
 - [x] update std bug (unstable testing in previous version)
 - [x] paper/codes release
