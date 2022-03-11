@@ -338,7 +338,7 @@ class PointMLP(nn.Module):
         self.stages = len(pre_blocks)
         self.class_num = num_classes
         self.points = points
-        self.embedding = ConvBNReLU1D(3, embed_dim, bias=bias, activation=activation)
+        self.embedding = ConvBNReLU1D(6, embed_dim, bias=bias, activation=activation)
         assert len(pre_blocks) == len(k_neighbors) == len(reducers) == len(pos_blocks) == len(dim_expansion), \
             "Please check stage number consistent for pre_blocks, pos_blocks k_neighbors, reducers."
         self.local_grouper_list = nn.ModuleList()
@@ -401,14 +401,14 @@ class PointMLP(nn.Module):
         self.classifier = nn.Sequential(
             nn.Conv1d(gmp_dim+cls_dim+de_dims[-1], 128, 1, bias=bias),
             nn.BatchNorm1d(128),
-            self.act,
             nn.Dropout(),
             nn.Conv1d(128, num_classes, 1, bias=bias)
         )
         self.en_dims = en_dims
 
-    def forward(self, x, cls_label):
+    def forward(self, x, norm_plt, cls_label):
         xyz = x.permute(0, 2, 1)
+        x = torch.cat([x,norm_plt],dim=1)
         x = self.embedding(x)  # B,D,N
 
         xyz_list = [xyz]  # [B, N, 3]
@@ -440,8 +440,8 @@ class PointMLP(nn.Module):
         cls_token = self.cls_map(cls_label.unsqueeze(dim=-1))  # [b, cls_dim, 1]
         x = torch.cat([x, global_context.repeat([1, 1, x.shape[-1]]), cls_token.repeat([1, 1, x.shape[-1]])], dim=1)
         x = self.classifier(x)
-        # x = F.log_softmax(x, dim=1)
-        # x = x.permute(0, 2, 1)
+        x = F.log_softmax(x, dim=1)
+        x = x.permute(0, 2, 1)
         return x
 
 
@@ -459,6 +459,6 @@ if __name__ == '__main__':
     norm = torch.rand(2, 3, 2048)
     cls_label = torch.rand([2, 16])
     print("===> testing modelD ...")
-    model = model31G(50)
+    model = pointMLP(50)
     out = model(data, cls_label)  # [2,2048,50]
     print(out.shape)
