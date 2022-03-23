@@ -51,7 +51,13 @@ Overview of one stage in PointMLP. Given an input point cloud, PointMLP progress
 
 :point_right::point_right::point_right:**NOTE:** The codes/models/logs for submission version (without bug fixed) can be found here [commit:d2b8dbaa](http://github.com/13952522076/pointMLP-pytorch/tree/d2b8dbaa06eb6176b222dcf2ad248f8438582026).
 
+<details>
+  <summary>:fast_forward: Questions on ModelNet40 classification reproduction</summary>
+  The performance on ModelNet40 of almost all methods are not stable, see (https://github.com/CVMI-Lab/PAConv/issues/9#issuecomment-873371422).
+  If you run the same codes for several times, you will get different results.
+  Also, the randomness of ModelNet40 is our motivation to experiment on ScanObjectNN benchmark, and to report the mean/std results of several runs.
 
+</details>
 
 
 ## Install
