@@ -74,8 +74,9 @@ cd pointMLP-pytorch
 conda create -n pointmlp python=3.7 -y
 conda activate pointmlp
 
-# 3. install required libs, pytorch 1.8.1, torchvision 0.9.1, etc.
-pip install -r requirements.txt
+# 3. install required libs, pytorch1.7+, torchvision, etc.
+conda install pytorch==1.10.1 torchvision==0.11.2 cudatoolkit=10.2 -c pytorch -y
+pip install cycler einops h5py pyyaml==5.4.1 scikit-learn==0.24.2 scipy tqdm
 
 # 4. install CUDA kernels
 pip install pointnet2_ops_lib/.
