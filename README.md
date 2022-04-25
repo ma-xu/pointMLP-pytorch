@@ -89,7 +89,7 @@ pip install pointnet2_ops_lib/.
 
 By default, it will create a folder named "checkpoints/{modelName}-{msg}-{randomseed}", which includes args.txt, best_checkpoint.pth, last_checkpoint.pth, log.txt, out.txt.
 ```bash
-cd pointMLP-pytorch/classification_ModelNet40
+cd classification_ModelNet40
 # train pointMLP
 python main.py --model pointMLP
 # train pointMLP-elite
@@ -111,6 +111,7 @@ The dataset will be automatically downloaded
 
 - Train pointMLP/pointMLPElite 
 ```bash
+cd classification_ScanObjectNN
 # train pointMLP
 python main.py --model pointMLP
 # train pointMLP-elite
@@ -124,7 +125,7 @@ By default, it will create a fold named "checkpoints/{modelName}-{msg}-{randomse
 
 - Make data folder and download the dataset
 ```bash
-cd pointMLP-pytorch/part_segmentation
+cd part_segmentation
 mkdir data
 cd data
 wget https://shapenet.cs.stanford.edu/media/shapenetcore_partanno_segmentation_benchmark_v0_normal.zip --no-check-certificate
