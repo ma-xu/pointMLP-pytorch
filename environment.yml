@@ -21,8 +21,3 @@ dependencies:
   - pip
   - pip:
     - pointnet2_ops_lib/.
-  # - pip: 
-    # - torch >= 1.8
-    # - torchvision
-    # - numpy
-    # - kornia
