@@ -71,15 +71,8 @@ git clone https://github.com/ma-xu/pointMLP-pytorch.git
 cd pointMLP-pytorch
 
 # 2. create a conda virtual environment and activate it
-conda create -n pointmlp python=3.7 -y
+conda env create
 conda activate pointmlp
-
-# 3. install required libs, pytorch1.7+, torchvision, etc.
-conda install pytorch==1.10.1 torchvision==0.11.2 cudatoolkit=10.2 -c pytorch -y
-pip install cycler einops h5py pyyaml==5.4.1 scikit-learn==0.24.2 scipy tqdm matplotlib==3.4.2
-
-# 4. install CUDA kernels
-pip install pointnet2_ops_lib/.
 ```
 
 
