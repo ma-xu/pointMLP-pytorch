@@ -1,0 +1,23 @@
+name: pointmlp                          
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge 
+dependencies:
+  # - cudatoolkit=10.2.89
+  - cudatoolkit=11.1
+  - cycler=0.10.0
+  - einops=0.3.0
+  - h5py=3.2.1
+  - matplotlib=3.4.2
+  - numpy=1.20.2
+  - numpy-base=1.20.2
+  - pytorch=1.8.1
+  - pyyaml=5.4.1
+  - scikit-learn=0.24.2
+  - scipy=1.6.3
+  - torchvision=0.9.1
+  - tqdm=4.61.1
+  - pip
+  - pip:
+    - pointnet2_ops_lib/.
