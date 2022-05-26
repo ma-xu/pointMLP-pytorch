@@ -66,13 +66,22 @@ Overview of one stage in PointMLP. Given an input point cloud, PointMLP progress
 ## Install
 
 ```bash
-# 1. clone this repo
+# step 1. clone this repo
 git clone https://github.com/ma-xu/pointMLP-pytorch.git
 cd pointMLP-pytorch
 
-# 2. create a conda virtual environment and activate it
+# step 2. create a conda virtual environment and activate it
 conda env create
 conda activate pointmlp
+```
+
+```bash
+# Optional solution for step 2: install libs step by step
+conda create -n pointmlp python=3.7 -y
+conda activate pointmlp
+conda install pytorch==1.10.1 torchvision==0.11.2 cudatoolkit=10.2 -c pytorch -y
+pip install cycler einops h5py pyyaml==5.4.1 scikit-learn==0.24.2 scipy tqdm matplotlib==3.4.2
+pip install pointnet2_ops_lib/.
 ```
 
 
