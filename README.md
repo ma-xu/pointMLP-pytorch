@@ -26,13 +26,11 @@ Overview of one stage in PointMLP. Given an input point cloud, PointMLP progress
 
 ## BibTeX
 
-    @inproceedings{
-        ma2022rethinking,
-        title={Rethinking Network Design and Local Geometry in Point Cloud: A Simple Residual {MLP} Framework},
-        author={Xu Ma and Can Qin and Haoxuan You and Haoxi Ran and Yun Fu},
-        booktitle={International Conference on Learning Representations},
-        year={2022},
-        url={https://openreview.net/forum?id=3Pbra-_u76D}
+    @article{ma2022rethinking,
+        title={Rethinking network design and local geometry in point cloud: A simple residual MLP framework},
+        author={Ma, Xu and Qin, Can and You, Haoxuan and Ran, Haoxi and Fu, Yun},
+        journal={arXiv preprint arXiv:2202.07123},
+        year={2022}
     }
 
 ## Model Zoo
