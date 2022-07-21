@@ -154,7 +154,6 @@ Our implementation is mainly based on the following codebases. We gratefully tha
 
 ## LICENSE
 PointMLP is under the Apache-2.0 license. 
-Please contact the authors for commercial use.
 
 
 
