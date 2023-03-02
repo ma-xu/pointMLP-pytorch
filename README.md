@@ -21,7 +21,7 @@
   <img src="images/overview.png" width="650px" height="300px">
 </div>
 
-Overview of one stage in PointMLP. Given an input point cloud, PointMLP progressively extract local features using residual point MLP blocks. In each stage, we first transform local point using a geometric affine module, then local points are are extracted before and after aggregation respectively. By repeating multiple stages, PointMLP progressively enlarge the receptive field and model entire point cloud geometric information.
+Overview of one stage in PointMLP. Given an input point cloud, PointMLP progressively extracts local features using residual point MLP blocks. In each stage, we first transform the local point using a geometric affine module, and then local points are extracted before and after aggregation, respectively. By repeating multiple stages, PointMLP progressively enlarges the receptive field and models entire point cloud geometric information.
 
 
 ## BibTeX
