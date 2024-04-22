@@ -20,7 +20,7 @@ def download():
     if not os.path.exists(os.path.join(DATA_DIR, 'h5_files')):
         # note that this link only contains the hardest perturbed variant (PB_T50_RS).
         # for full versions, consider the following link.
-        www = 'https://web.northeastern.edu/smilelab/xuma/datasets/h5_files.zip'
+        www = 'https://github.com/ma-xu/pointMLP-pytorch/releases/download/dataset/h5_files.zip'
         # www = 'http://103.24.77.34/scanobjectnn/h5_files.zip'
         zipfile = os.path.basename(www)
         os.system('wget %s  --no-check-certificate; unzip %s' % (www, zipfile))
