@@ -58,9 +58,9 @@ Stay tuned. More elite versions and voting results will be uploaded.
 
 ## News & Updates:
 
+- [x] University server is down. Update the ScanobjectNN dataset link.
 - [x] fix the uncomplete utils in partseg by Mar/10, caused by error uplaoded folder.
 - [x] upload test code for ModelNet40
-- [ ] project page
 - [x] update std bug (unstable testing in previous version)
 - [x] paper/codes release
 
