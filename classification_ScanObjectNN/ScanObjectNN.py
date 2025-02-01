@@ -12,20 +12,32 @@ from torch.utils.data import Dataset
 os.environ["HDF5_USE_FILE_LOCKING"] = "FALSE"
 
 
+import os
+
 def download():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     DATA_DIR = os.path.join(BASE_DIR, 'data')
-    if not os.path.exists(DATA_DIR):
-        os.mkdir(DATA_DIR)
-    if not os.path.exists(os.path.join(DATA_DIR, 'h5_files')):
-        # note that this link only contains the hardest perturbed variant (PB_T50_RS).
-        # for full versions, consider the following link.
-        www = 'https://github.com/ma-xu/pointMLP-pytorch/releases/download/dataset/h5_files.zip'
-        # www = 'http://103.24.77.34/scanobjectnn/h5_files.zip'
-        zipfile = os.path.basename(www)
-        os.system('wget %s  --no-check-certificate; unzip %s' % (www, zipfile))
-        os.system('mv %s %s' % (zipfile[:-4], DATA_DIR))
-        os.system('rm %s' % (zipfile))
+    H5_DIR = os.path.join(DATA_DIR, 'h5_files')
+    
+    expected_file = os.path.join(H5_DIR, "main_split", "test_objectdataset_augmentedrot_scale75.h5")
+    
+    if os.path.exists(expected_file):
+        print("Dataset already downloaded. Skipping download.")
+        return
+    
+    if not os.path.exists(H5_DIR):
+        os.makedirs(H5_DIR)
+    
+    www = 'https://github.com/ma-xu/pointMLP-pytorch/releases/download/dataset/h5_files.zip'
+    zipfile = os.path.basename(www)
+    
+    os.system(f'wget {www} --no-check-certificate')
+    os.system(f'unzip {zipfile} -d {H5_DIR}')
+    os.system(f'rm {zipfile}')
+    os.system(f'rm -rf "{os.path.join(H5_DIR, "main_files")}"')
+    os.system(f'rm -rf "{os.path.join(H5_DIR, "__MACOSX")}"')
+
+    print("Download and extraction complete.")
 
 
 def load_scanobjectnn_data(partition):
